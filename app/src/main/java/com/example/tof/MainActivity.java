@@ -1,4 +1,4 @@
-package com.example.tof;
+package solderchef;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
