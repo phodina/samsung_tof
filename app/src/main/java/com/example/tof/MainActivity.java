@@ -93,7 +93,19 @@ public class MainActivity extends AppCompatActivity implements DepthFrameVisuali
         applied.
      */
     private void renderBitmapToTextureView(Bitmap bitmap, TextureView textureView) {
+        if (textureView == null) {
+            Log.w(TAG, "TextureView is null, cannot render bitmap");
+            return;
+        }
+        if (!textureView.isAvailable() || textureView.getWidth() == 0 || textureView.getHeight() == 0) {
+            Log.w(TAG, "TextureView not ready: available=" + textureView.isAvailable() + ", width=" + textureView.getWidth() + ", height=" + textureView.getHeight());
+            return;
+        }
         Canvas canvas = textureView.lockCanvas();
+        if (canvas == null) {
+            Log.w(TAG, "lockCanvas() returned null");
+            return;
+        }
         canvas.drawBitmap(bitmap, defaultBitmapTransform(textureView), null);
         textureView.unlockCanvasAndPost(canvas);
     }
