@@ -24,6 +24,35 @@ import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 
 public class Camera extends CameraDevice.StateCallback {
+        /**
+         * Enumerate and log all camera IDs that support DEPTH_OUTPUT.
+         */
+        public void logAllDepthOutputCameras() {
+            try {
+                for (String cameraId : cameraManager.getCameraIdList()) {
+                    CameraCharacteristics chars = cameraManager.getCameraCharacteristics(cameraId);
+                    int[] caps = chars.get(CameraCharacteristics.REQUEST_AVAILABLE_CAPABILITIES);
+                    boolean hasDepth = false;
+                    if (caps != null) {
+                        for (int cap : caps) {
+                            if (cap == CameraCharacteristics.REQUEST_AVAILABLE_CAPABILITIES_DEPTH_OUTPUT) {
+                                hasDepth = true;
+                                break;
+                            }
+                        }
+                    }
+                    if (hasDepth) {
+                        Integer lensFacing = chars.get(CameraCharacteristics.LENS_FACING);
+                        String facing = lensFacing == null ? "UNKNOWN" :
+                            (lensFacing == CameraCharacteristics.LENS_FACING_FRONT ? "FRONT" :
+                            (lensFacing == CameraCharacteristics.LENS_FACING_BACK ? "BACK" : "EXTERNAL"));
+                        Log.i(TAG, "Camera ID: " + cameraId + ", Facing: " + facing + " supports DEPTH_OUTPUT");
+                    }
+                }
+            } catch (CameraAccessException e) {
+                Log.e(TAG, "Error enumerating cameras: " + e.getMessage());
+            }
+        }
     private static final String TAG = Camera.class.getSimpleName();
 
     private static int FPS_MIN = 15;
