@@ -24,6 +24,18 @@ import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 
 public class Camera extends CameraDevice.StateCallback {
+            // Samsung vendor tag keys (example, may need adjustment for actual device)
+            private static final String SAMSUNG_DEPTH_FILTER_TYPE = "samsung.android.depth.filterType";
+
+            /**
+             * Log Samsung vendor tag values for depth tuning from a CaptureResult.
+             */
+            private void logSamsungDepthVendorTags(CaptureRequest request, CameraCaptureSession session) {
+                // This is a stub for demonstration. Actual vendor tag access may require reflection or custom APIs.
+                // In a real implementation, you would use CaptureResult.Key and session callbacks.
+                // Here, we just log the intent.
+                Log.i(TAG, "Attempting to access Samsung vendor tags for depth tuning (filterType, etc.)");
+            }
         /**
          * Enumerate and log all camera IDs that support DEPTH_OUTPUT.
          */
@@ -160,6 +172,8 @@ public class Camera extends CameraDevice.StateCallback {
         previewBuilder.set(CaptureRequest.CONTROL_MODE, CameraMetadata.CONTROL_MODE_AUTO);
         try {
             session.setRepeatingRequest(previewBuilder.build(), null, null);
+            // Attempt to log Samsung vendor tags for depth tuning (if available)
+            logSamsungDepthVendorTags(previewBuilder.build(), session);
         } catch (CameraAccessException e) {
             e.printStackTrace();
         }
