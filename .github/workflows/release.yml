@@ -29,14 +29,16 @@ jobs:
         run: chmod +x gradlew
       - name: Build release APK
         run: ./gradlew assembleRelease
+      - name: List APK files
+        run: ls -l app/build/outputs/apk/release/
       - name: Upload release APK
         uses: actions/upload-artifact@v4
         with:
           name: app-release-apk
-          path: app/build/outputs/apk/release/app-release.apk
+          path: app/build/outputs/apk/release/*.apk
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
-          files: app/build/outputs/apk/release/app-release.apk
+          files: app/build/outputs/apk/release/*.apk
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
