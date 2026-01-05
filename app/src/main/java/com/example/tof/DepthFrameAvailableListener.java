@@ -10,6 +10,29 @@ import android.util.Log;
 import java.nio.ShortBuffer;
 
 public class DepthFrameAvailableListener implements ImageReader.OnImageAvailableListener {
+        // Path to save point cloud files (for demonstration, use app's files dir in real app)
+        private String pointCloudFilePath = "/sdcard/Download/depth_point_cloud.csv";
+
+        /**
+         * Save the current depth frame as a CSV point cloud file: x, y, depth_mm
+         */
+        public void saveCurrentPointCloud() {
+            try {
+                java.io.FileWriter writer = new java.io.FileWriter(pointCloudFilePath);
+                writer.write("x,y,depth_mm\n");
+                for (int y = 0; y < HEIGHT; y++) {
+                    for (int x = 0; x < WIDTH; x++) {
+                        int index = y * WIDTH + x;
+                        int depth = rawMask[index];
+                        writer.write(x + "," + y + "," + depth + "\n");
+                    }
+                }
+                writer.close();
+                Log.i(TAG, "Point cloud saved to: " + pointCloudFilePath);
+            } catch (Exception e) {
+                Log.e(TAG, "Failed to save point cloud: " + e.getMessage());
+            }
+        }
     private static final String TAG = DepthFrameAvailableListener.class.getSimpleName();
 
     public static int WIDTH = 240;
