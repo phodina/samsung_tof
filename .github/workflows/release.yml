@@ -29,8 +29,8 @@ jobs:
         run: chmod +x gradlew
       - name: Decode Keystore
         run: |
+          mkdir -p app
           echo "$ANDROID_KEYSTORE_BASE64" | base64 -d > app/release.keystore
-        working-directory: app
         env:
           ANDROID_KEYSTORE_BASE64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
       - name: Build signed release APK
