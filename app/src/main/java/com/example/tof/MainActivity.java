@@ -7,6 +7,7 @@ import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.graphics.RectF;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.TextureView;
 
 import androidx.annotation.NonNull;
