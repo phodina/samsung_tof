@@ -40,9 +40,12 @@ public class MainActivity extends AppCompatActivity implements DepthFrameVisuali
         movingAverageView = findViewById(R.id.movingAverage);
         blurredAverageView = findViewById(R.id.blurredAverage);
 
-        checkCamPermissions();
         camera = new Camera(this, this);
-        camera.openFrontDepthCamera();
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
+            camera.openFrontDepthCamera();
+        } else {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, CAM_PERMISSIONS_REQUEST);
+        }
     }
 
     private void checkCamPermissions() {
@@ -54,6 +57,13 @@ public class MainActivity extends AppCompatActivity implements DepthFrameVisuali
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == CAM_PERMISSIONS_REQUEST) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                camera.openFrontDepthCamera();
+            } else {
+                // Optionally, show a message to the user
+            }
+        }
     }
 
     @Override
