@@ -11,3 +11,14 @@ There is also an associated post [here](https://medium.com/@lukesma/working-with
 ## Samsung A80
 
 This is update to support also the Samsung A80 device with IMX316 camera
+
+
+## Custom signing the APK
+
+```
+nix-shell -p openjdk
+
+keytool -genkeypair -v -keystore release.keystore -alias your-key-alias -keyalg RSA -keysize 2048 -validity 10000
+
+base64 release.keystore > release.keystore.b64
+```
