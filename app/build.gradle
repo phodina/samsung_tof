@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 
 android {
+    namespace 'solderchef'
     compileSdkVersion 28
     defaultConfig {
         applicationId "com.example.tof"
