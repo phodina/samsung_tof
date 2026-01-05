@@ -92,6 +92,7 @@ public class Camera extends CameraDevice.StateCallback {
             Log.e(TAG, "No suitable front depth camera found (cameraId is null)");
             return;
         }
+        Log.i(TAG, "Opening front depth camera with ID: " + cameraId);
         openCamera(cameraId);
     }
 
@@ -106,6 +107,7 @@ public class Camera extends CameraDevice.StateCallback {
                     boolean capable = capability == CameraMetadata.REQUEST_AVAILABLE_CAPABILITIES_DEPTH_OUTPUT;
                     depthCapable = depthCapable || capable;
                 }
+                Log.i(TAG, "Camera ID: " + camera + ", facingFront=" + facingFront + ", depthCapable=" + depthCapable);
                 if (depthCapable && facingFront) {
                     // Note that the sensor size is much larger than the available capture size
                     SizeF sensorSize = chars.get(CameraCharacteristics.SENSOR_INFO_PHYSICAL_SIZE);
