@@ -88,6 +88,10 @@ public class Camera extends CameraDevice.StateCallback {
     // Open the front depth camera and start sending frames
     public void openFrontDepthCamera() {
         final String cameraId = getFrontDepthCameraID();
+        if (cameraId == null) {
+            Log.e(TAG, "No suitable front depth camera found (cameraId is null)");
+            return;
+        }
         openCamera(cameraId);
     }
 
@@ -126,6 +130,10 @@ public class Camera extends CameraDevice.StateCallback {
     }
 
     private void openCamera(String cameraId) {
+        if (cameraId == null) {
+            Log.e(TAG, "cameraId was null. Aborting openCamera.");
+            return;
+        }
         try{
             int permission = ContextCompat.checkSelfPermission(context, Manifest.permission.CAMERA);
             if(PackageManager.PERMISSION_GRANTED == permission) {
