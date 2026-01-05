@@ -1,7 +1,7 @@
 apply plugin: 'com.android.application'
 
 android {
-    namespace 'solderchef'
+    namespace 'com.solderchef.tof'
     compileSdkVersion 33
     signingConfigs {
         release {
@@ -12,7 +12,7 @@ android {
         }
     }
     defaultConfig {
-        applicationId "com.example.tof"
+        applicationId "com.solderchef.tof"
         minSdkVersion 23
         targetSdkVersion 33
         versionCode 1

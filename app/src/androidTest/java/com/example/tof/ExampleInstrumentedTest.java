@@ -1,4 +1,4 @@
-package com.example.tof;
+package com.solderchef.tof;
 
 import android.content.Context;
 
@@ -22,6 +22,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
 
-        assertEquals("com.example.tof", appContext.getPackageName());
+        assertEquals("com.solderchef.tof", appContext.getPackageName());
     }
 }

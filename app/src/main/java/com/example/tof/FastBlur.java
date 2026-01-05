@@ -1,4 +1,4 @@
-package solderchef;
+package com.solderchef.tof;
 
 
 /* This is a java port of http://blog.ivank.net/fastest-gaussian-blur.html. */

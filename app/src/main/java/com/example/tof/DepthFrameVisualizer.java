@@ -1,4 +1,4 @@
-package solderchef;
+package com.solderchef.tof;
 
 import android.graphics.Bitmap;
 

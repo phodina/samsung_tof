@@ -1,4 +1,4 @@
-package com.example.tof;
+package com.solderchef.tof;
 
 import org.junit.Test;
 
