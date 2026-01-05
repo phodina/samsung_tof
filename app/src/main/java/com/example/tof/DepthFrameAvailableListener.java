@@ -64,12 +64,20 @@ public class DepthFrameAvailableListener implements ImageReader.OnImageAvailable
     public void onImageAvailable(ImageReader reader) {
         try {
             Image image = reader.acquireNextImage();
-            if (image != null && image.getFormat() == ImageFormat.DEPTH16) {
+            if (image == null) {
+                Log.w(TAG, "onImageAvailable: image is null");
+                return;
+            }
+            Log.i(TAG, "onImageAvailable: got image, format=" + image.getFormat());
+            if (image.getFormat() == ImageFormat.DEPTH16) {
+                Log.i(TAG, "Processing DEPTH16 image");
                 processImage(image);
                 publishRawData();
                 publishNoiseReduction();
                 publishMovingAverage();
                 publishBlurredMovingAverage();
+            } else {
+                Log.w(TAG, "Image format is not DEPTH16: " + image.getFormat());
             }
             image.close();
         }
